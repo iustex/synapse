@@ -236,7 +236,12 @@ BASE_APPEND_OVERRIDE_RULES = [
                 "_id": "_member",
             }
         ],
-        "actions": ["dont_notify"],
+        #"actions": ["dont_notify"],
+        "actions": [
+            "notify",
+            {"set_tweak": "sound", "value": "default"},
+            {"set_tweak": "highlight", "value": False},
+        ],
     },
     # This was changed from underride to override so it's closer in priority
     # to the content rules where the user name highlight rule lives. This
