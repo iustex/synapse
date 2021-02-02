@@ -744,7 +744,7 @@ class RegistrationHandler(BaseHandler):
             token: access_token for the user, or None if not logged in.
         """
 
-        logger.warning("Marker 1 - Before _register_email_threepid")
+        #logger.warning("Marker 1 - Before _register_email_threepid")
 
         reqd = ("medium", "address", "validated_at")
         if any(x not in threepid for x in reqd):
@@ -752,17 +752,17 @@ class RegistrationHandler(BaseHandler):
             logger.info("Can't add incomplete 3pid")
             return
 
-        logger.warning("Marker 2 - After _register_email_threepid")
+        #logger.warning("Marker 2 - After _register_email_threepid")
 
         await self._auth_handler.add_threepid(
             user_id, threepid["medium"], threepid["address"], threepid["validated_at"],
         )
 
-        logger.warning("Marker 3 - After 2 _register_email_threepid")
+        #logger.warning("Marker 3 - After 2 _register_email_threepid")
 
-        logger.warning(self.hs.config.email_enable_notifs)
-        logger.warning(self.hs.config.email_notif_for_new_users)
-        logger.warning(token)
+        #logger.warning(self.hs.config.email_enable_notifs)
+        #logger.warning(self.hs.config.email_notif_for_new_users)
+        #logger.warning(token)
 
         # And we add an email pusher for them by default, but only
         # if email notifications are enabled (so people don't start
@@ -773,7 +773,8 @@ class RegistrationHandler(BaseHandler):
             and self.hs.config.email_notif_for_new_users
             #and token #<-verichat
         ):
-            logger.warning("Marker 4 - Inside")
+            #logger.warning("Marker 4 - Inside")
+
             # Pull the ID of the access token back out of the db
             # It would really make more sense for this to be passed
             # up when the access token is saved, but that's quite an
