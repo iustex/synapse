@@ -317,6 +317,7 @@ def setup_logging(
 
     # Log immediately so we can grep backwards.
     logging.warning("***** STARTING SERVER *****")
+    logging.warning("***** CUSTOM REPOSITORY *****")
     logging.warning("Server %s version %s", sys.argv[0], get_version_string(synapse))
     logging.info("Server hostname: %s", config.server_name)
     logging.info("Instance name: %s", hs.get_instance_name())
