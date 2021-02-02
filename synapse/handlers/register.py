@@ -743,15 +743,26 @@ class RegistrationHandler(BaseHandler):
             threepid: m.login.email.identity auth response
             token: access_token for the user, or None if not logged in.
         """
+
+        logger.info("Marker 1 - Before _register_email_threepid")
+
         reqd = ("medium", "address", "validated_at")
         if any(x not in threepid for x in reqd):
             # This will only happen if the ID server returns a malformed response
             logger.info("Can't add incomplete 3pid")
             return
 
+        logger.info("Marker 2 - After _register_email_threepid")
+
         await self._auth_handler.add_threepid(
             user_id, threepid["medium"], threepid["address"], threepid["validated_at"],
         )
+
+        logger.info("Marker 3 - After 2 _register_email_threepid")
+
+        logger.info(self.hs.config.email_enable_notifs)
+        logger.info(self.hs.config.email_notif_for_new_users)
+        logger.info(token)
 
         # And we add an email pusher for them by default, but only
         # if email notifications are enabled (so people don't start
@@ -762,6 +773,7 @@ class RegistrationHandler(BaseHandler):
             and self.hs.config.email_notif_for_new_users
             and token
         ):
+            logger.info("Marker 4 - Inside")
             # Pull the ID of the access token back out of the db
             # It would really make more sense for this to be passed
             # up when the access token is saved, but that's quite an
